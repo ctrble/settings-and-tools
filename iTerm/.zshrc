@@ -2,13 +2,15 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/charlottetrible/.oh-my-zsh"
+export ZSH="~/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
+# https://github.com/denysdovhan/spaceship-prompt/tree/master/sections
+# https://github.com/Homebrew/homebrew-cask-fonts/tree/master/Casks
 ZSH_THEME="spaceship"
 SPACESHIP_PROMPT_ORDER=(
   time          # Time stamps section
@@ -43,6 +45,9 @@ SPACESHIP_PROMPT_ORDER=(
   # vi_mode       # Vi-mode indicator
   jobs          # Background jobs indicator
   exit_code     # Exit code section
+  line_sep
+  node          # Node.js section
+  ruby          # Ruby section
   line_sep
   char          # Prompt character
 )
@@ -100,16 +105,32 @@ SPACESHIP_DIR_COLOR='cyan'                                 # Color of directory 
 SPACESHIP_DIR_LOCK_SYMBOL=''                              # The symbol displayed if directory is write-protected (requires powerline patched font)
 SPACESHIP_DIR_LOCK_COLOR='red'                             # Color for the lock symbol
 
+# Ruby
+SPACESHIP_RUBY_SHOW=true
+SPACESHIP_RUBY_PREFIX=$SPACESHIP_PROMPT_DEFAULT_PREFIX
+SPACESHIP_RUBY_SUFFIX=$SPACESHIP_PROMPT_DEFAULT_SUFFIX
+SPACESHIP_RUBY_SYMBOL="\uE739 "
+SPACESHIP_RUBY_COLOR="red"
+
+# Node
+SPACESHIP_NODE_SHOW=true
+SPACESHIP_NODE_PREFIX=$SPACESHIP_PROMPT_DEFAULT_PREFIX
+SPACESHIP_NODE_SUFFIX=$SPACESHIP_PROMPT_DEFAULT_SUFFIX
+SPACESHIP_NODE_SYMBOL="⬢ "
+SPACESHIP_NODE_DEFAULT_VERSION="8"
+SPACESHIP_NODE_COLOR="green"
+
 # GIT
 SPACESHIP_GIT_SHOW=true                                  # Show Git section
 SPACESHIP_GIT_PREFIX='on '                               # Prefix before Git section
 SPACESHIP_GIT_SUFFIX=$SPACESHIP_PROMPT_DEFAULT_SUFFIX    # Suffix after Git section
-SPACESHIP_GIT_SYMBOL=''                                 # Character to be shown before Git section (requires powerline patched font)
+# SPACESHIP_GIT_SYMBOL=''                                 # Character to be shown before Git section (requires powerline patched font)
+SPACESHIP_GIT_SYMBOL='\uE0A0'                                 # Character to be shown before Git section (requires powerline patched font)
 
 # GIT Branch
 SPACESHIP_GIT_BRANCH_SHOW=true                        # Show Git branch subsection
 SPACESHIP_GIT_BRANCH_PREFIX=$SPACESHIP_GIT_SYMBOL     # Prefix before Git branch subsection
-SPACESHIP_GIT_BRANCH_SUFFIX=' '                        # Suffix after Git branch subsection
+SPACESHIP_GIT_BRANCH_SUFFIX=''                        # Suffix after Git branch subsection
 SPACESHIP_GIT_BRANCH_COLOR='magenta'                  # Color of Git branch subsection
 
 # GIT Status
@@ -249,3 +270,23 @@ source $ZSH/oh-my-zsh.sh
 eval $(thefuck --alias)
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Yarn
+export PATH="$(yarn global bin):$PATH"
+
+# ImageMagick
+# export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+
+# mySQL
+# export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+# export DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH
+# export LDFLAGS="-L/usr/local/opt/mysql@5.7/lib"
+# export CPPFLAGS="-I/usr/local/opt/mysql@5.7/include"
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+# export PATH="$PATH:$HOME/.rvm/bin"
