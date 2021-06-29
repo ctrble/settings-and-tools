@@ -21,7 +21,7 @@ Installed via Homebrew:
 Recommended install order:
 
 1. browsers, because you gotta start somewhere
-2. iterm2, you'll be in the cli before you know it and terminal is meh
+2. iterm2 w/ imported json profile, you'll be in the cli before you know it and terminal is meh
 3. vscode, you definitely don't wanna use textedit
 4. homebrew w/ formulae + casks, you'll at least need git
 5. ohmyzsh w/ .zshrc setup, finally the good stuff
