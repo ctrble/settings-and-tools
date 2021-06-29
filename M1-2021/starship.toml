@@ -1,0 +1,108 @@
+# https://starship.rs/config/#prompt
+add_newline = true
+
+format = """
+$time\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$jobs\
+$status\
+$cmd_duration\
+\n\
+$nodejs\
+$docker_context\
+$username\
+$hostname\
+$shlvl\
+$kubernetes\
+$vcsh\
+$hg_branch\
+$package\
+$cmake\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$helm\
+$java\
+$julia\
+$kotlin\
+$nim\
+$ocaml\
+$perl\
+$php\
+$purescript\
+$python\
+$red\
+$ruby\
+$rust\
+$scala\
+$swift\
+$terraform\
+$vlang\
+$vagrant\
+$zig\
+$nix_shell\
+$conda\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$env_var\
+$crystal\
+$custom\
+$lua\
+$battery\
+$shell\
+\n\
+$line_break\
+$character"""
+
+# https://starship.rs/config/#line-break
+[line_break]
+disabled = true
+
+# https://starship.rs/config/#time
+[time]
+disabled = false
+use_12hr = true
+format = '[$time]($style) '
+
+# https://starship.rs/config/#directory
+[directory]
+truncation_length = 3
+
+# https://starship.rs/config/#git-branch
+[git_branch]
+symbol = " "
+
+# https://starship.rs/config/#git-state
+[git_state]
+
+# https://starship.rs/config/#git-status
+[git_status]
+
+# https://starship.rs/config/#jobs
+[jobs]
+threshold = 1
+
+# https://starship.rs/config/#status
+[status]
+
+# https://starship.rs/config/#command-duration
+[cmd_duration]
+min_time = 500
+
+# https://starship.rs/config/#node-js
+[nodejs]
+format = "[ $version](bold green) "
+
+# https://starship.rs/config/#docker-context
+[docker_context]
+format = " [ $context](blue bold) "
