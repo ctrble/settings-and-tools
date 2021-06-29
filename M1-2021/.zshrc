@@ -113,9 +113,9 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Starship Theme: https://starship.rs/
-# fonts: https://www.nerdfonts.com/
+# Fonts: https://www.nerdfonts.com/
 #   (Hack Nerd Font for icons & SpaceMono Nerd Font for text)
-# configuration: ~/.config/starship.toml
+# Configuration: ~/.config/starship.toml
 eval "$(starship init zsh)"
 
 # Paths
