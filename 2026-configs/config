@@ -37,3 +37,29 @@ macos-option-as-alt = true
 # Automatic for zsh: new tabs inherit cwd, multi-line prompts redraw
 # correctly on resize. Nothing to configure. This is why Starship
 # behaves better here than it did in Warp.
+
+# ── Warp-like navigation/editing ──────────────────────────────────
+
+# Selection stays visible while you keep typing (default already
+# clears it — this is the "select then type over it" Warp habit).
+# clear-selection-on-typing = false
+
+# Turn the prompt cursor into a bar, matching normal text-field feel
+# (automatic once shell integration is active — no config needed)
+
+# Command-output selection: Cmd+triple-click (macOS) selects just
+# the output of one command, not the whole scrollback block.
+# (also automatic via shell integration — try it after upgrading)
+
+# Copy-on-select, tuned for macOS system clipboard rather than the
+# X11-style "primary selection" Ghostty defaults to elsewhere:
+copy-on-select = clipboard
+
+# Word-boundary characters for double-click selection — add path
+# and flag characters so double-clicking a file path or --flag
+# grabs the whole token instead of splitting on / or -
+selection-word-chars = " \t\n\"'`|()[]{}<>=,:;/-@"
+
+# Faster double/triple-click detection window (ms). Lower = more
+# deliberate distinction between single/double/triple click.
+click-repeat-interval = 400
