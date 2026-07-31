@@ -1,0 +1,31 @@
+// ═══════════════════════════════════════════════════════════════════
+//  Zed — installs to ~/.config/zed/settings.json
+//  Docs: https://zed.dev/docs/reference/all-settings
+//
+//  ⚠️  MERGE, don't overwrite. If you already have Zed settings, copy
+//      the keys below into your existing file. install.sh backs up
+//      whatever is there first, but check the backup.
+//
+//  Zed uses JSONC — comments are allowed and will not break parsing.
+//
+//  GOTCHA: if terminal.font_fallbacks is unset, Zed's terminal
+//  inherits buffer_font_fallbacks. That's why changing your editor
+//  font can silently change your terminal glyphs. Both are set
+//  explicitly below so that can't surprise you.
+// ═══════════════════════════════════════════════════════════════════
+{
+  // ── Editor ───────────────────────────────────────────────────────
+  "buffer_font_family": "SpaceMono Nerd Font Mono",
+  "buffer_font_fallbacks": ["SpaceMono Nerd Font Mono"],
+  "buffer_font_size": 14,
+
+  // ── Integrated terminal ──────────────────────────────────────────
+  // Same font as Ghostty on purpose: one name to remember.
+  "terminal": {
+    "font_family": "SpaceMono Nerd Font Mono",
+    "font_fallbacks": ["SpaceMono Nerd Font Mono"],
+    "font_size": 13,
+    "copy_on_select": true,
+    "blinking": "off"
+  }
+}

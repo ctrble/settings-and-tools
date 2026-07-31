@@ -1,0 +1,48 @@
+# ═══════════════════════════════════════════════════════════════════
+#  Brewfile — the source of truth for "where did this come from?"
+#
+#  ⚠️  THIS IS A FLOOR, NOT THE TRUTH. It only contains what SETUP.md
+#      actually needs. On the machine you're happy with, run:
+#
+#        brew bundle dump --describe --force
+#
+#      ...and commit the result. That captures everything, including
+#      the two third-party taps you have (agrinman/tap, anomalyco/tap
+#      — worth checking whether you still use either).
+#
+#  Restore on a new machine:  brew bundle install
+#  Check for drift:           brew bundle check --verbose
+#  Remove anything not here:  brew bundle cleanup     (dry run by default)
+#
+#  DELIBERATELY REMOVED:
+#    tap "homebrew/cask-fonts"    → deprecated; fonts live in main cask
+#    cask "font-hack-nerd-font"   → redundant, Ghostty/Zed fall back natively
+# ═══════════════════════════════════════════════════════════════════
+
+# ── Shell & prompt ─────────────────────────────────────────────────
+brew "starship"   # the prompt. config: ~/.config/starship.toml
+brew "fzf"        # fuzzy finder; powers the zsh-interactive-cd plugin
+brew "git"
+
+# ── Terminals & editors ────────────────────────────────────────────
+cask "ghostty"
+cask "zed"
+cask "visual-studio-code"   # keeping for the `code` shim
+
+# ── Fonts ──────────────────────────────────────────────────────────
+# No tap needed — this now lives in the main homebrew-cask repo.
+cask "font-space-mono-nerd-font"
+
+# ── Containers ─────────────────────────────────────────────────────
+# Verify this token before trusting it: the cask was renamed from
+# "docker" and Homebrew occasionally shuffles these.
+#   brew info --cask docker-desktop
+cask "docker-desktop"
+
+# ── Not managed by Homebrew (see SETUP.md) ─────────────────────────
+#   Oh My Zsh          → curl installer, lives at ~/.oh-my-zsh
+#   zsh-nvm            → git clone into $ZSH/custom/plugins/
+#   zsh-autosuggestions      ↓
+#   zsh-syntax-highlighting  ↓
+#   zsh-yarn-completions     ↓
+#   nvm + node         → installed by the zsh-nvm plugin on first run

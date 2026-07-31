@@ -1,0 +1,39 @@
+# ═══════════════════════════════════════════════════════════════════
+#  Ghostty — installs to ~/.config/ghostty/config
+#  Docs: https://ghostty.org/docs/config/reference
+#  Ghostty auto-reloads this file on save.
+#
+#  Useful:
+#    ghostty +list-fonts | grep -i spacemono     # exact family names
+#    ghostty +list-themes                        # bundled themes
+#    ghostty +show-config --default --docs | less
+#
+#  NOTE: Ghostty ships Nerd Font symbols built in, so Starship glyphs
+#  render even with no font installed. font-family below is a
+#  preference, not a dependency.
+# ═══════════════════════════════════════════════════════════════════
+
+# ── Font ───────────────────────────────────────────────────────────
+# Drop "Mono" from the name if icons look cramped — the Mono variant
+# single-widths its glyphs. Do NOT add a second font for icons; that
+# was the old iTerm2 workaround and Ghostty doesn't need it.
+font-family = SpaceMono Nerd Font Mono
+font-size = 13
+
+# Repeat font-family to add fallbacks (CJK, etc.). Rarely needed.
+# font-family = Some Other Font
+
+# ── Appearance ─────────────────────────────────────────────────────
+# Pick one from `ghostty +list-themes`, then uncomment.
+# theme = catppuccin-mocha
+
+window-padding-x = 8
+window-padding-y = 8
+
+# ── macOS ──────────────────────────────────────────────────────────
+macos-option-as-alt = true
+
+# ── Shell integration ──────────────────────────────────────────────
+# Automatic for zsh: new tabs inherit cwd, multi-line prompts redraw
+# correctly on resize. Nothing to configure. This is why Starship
+# behaves better here than it did in Warp.

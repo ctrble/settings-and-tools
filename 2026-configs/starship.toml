@@ -1,0 +1,131 @@
+# ═══════════════════════════════════════════════════════════════════
+#  Starship — installs to ~/.config/starship.toml
+#  Docs: https://starship.rs/config/
+#
+#  Layout is three lines, on purpose:
+#    1. time · directory · git · jobs · duration
+#    2. everything else (language/tool versions, cloud, container…)
+#    3. the prompt character
+#
+#  Debugging:
+#    starship print-config    # active config INCLUDING defaults
+#    starship explain         # why is segment X showing?
+#    starship timings         # what's slow?
+#    starship module nodejs   # render one module in isolation
+# ═══════════════════════════════════════════════════════════════════
+
+# Editor autocomplete + inline validation for this file.
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+
+# ── Layout ─────────────────────────────────────────────────────────
+# $all = every module NOT named explicitly above, in Starship's
+# default order. This replaces the ~50-module list you had enumerated
+# by hand, and means new modules appear automatically instead of
+# silently never rendering. (Your old list predated bun, git_metrics,
+# os, container, direnv, mise, and ~35 others.)
+#
+# TRADEOFF: line 2 now uses Starship's default ordering, so
+# docker_context comes before nodejs rather than after. If you want
+# the old order back, see the commented block at the bottom.
+format = """
+$time\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$jobs\
+$cmd_duration\
+$all
+$character"""
+
+# ── Line 1 ─────────────────────────────────────────────────────────
+
+# https://starship.rs/config/#time
+# Disabled by default, so the explicit enable is required.
+# use_12hr makes time_format default to '%r'.
+[time]
+disabled = false
+use_12hr = true
+format = '[$time]($style) '
+
+# https://starship.rs/config/#directory
+# truncation_length 3 and truncate_to_repo true are ALREADY the
+# defaults — nothing to set. Kept as a comment so you know where to
+# look, without pretending it's a customization.
+# [directory]
+# truncation_length = 3
+
+# https://starship.rs/config/#git-branch
+# The Nerd Font branch glyph is ALREADY the default symbol, so the
+# `symbol = " "` you had was a no-op. Left unset.
+# This is one of only three Nerd Font glyphs your prompt depends on:
+# git branch, node, and docker.
+
+# https://starship.rs/config/#command-duration
+[cmd_duration]
+min_time = 500
+
+# https://starship.rs/config/#jobs
+[jobs]
+threshold = 1
+
+# ── Line 2 ─────────────────────────────────────────────────────────
+
+# https://starship.rs/config/#node-js
+[nodejs]
+format = '[ $version](bold green) '
+
+# https://starship.rs/config/#docker-context
+# Fixed: your version had a leading AND trailing space, which is
+# where the double gap in your prompt came from.
+#
+# Starship normally hides `default` and `desktop-linux` contexts. If
+# you're seeing `desktop-linux` anyway, it's because Docker Desktop's
+# init-zsh.sh exports DOCKER_HOST or DOCKER_CONTEXT, which forces the
+# module on. Since desktop-linux just means "local Docker," that
+# segment is pure noise — uncomment the disable if you agree.
+[docker_context]
+format = '[ $context](blue bold) '
+# disabled = true
+
+# ── Line 3 ─────────────────────────────────────────────────────────
+
+# https://starship.rs/config/#character
+# Defaults are already ❯ green / ❯ red. Uncomment to change SHAPE on
+# error rather than only color.
+# [character]
+# success_symbol = '[❯](bold green)'
+# error_symbol = '[✗](bold red)'
+
+# ── Removed, and why ───────────────────────────────────────────────
+#
+# $status + [status]  The status module is DISABLED BY DEFAULT. You
+#                     had it in the format string with an empty
+#                     [status] table, so it never rendered. If you
+#                     want exit codes, add:
+#                       [status]
+#                       disabled = false
+#                       map_symbol = true
+#                     ...and put $status back in the format above.
+#
+# $line_break         You had it in the format while also setting
+#                     [line_break] disabled = true. Dead entry. The
+#                     literal newlines in `format` do the work.
+#
+# [git_state]         Empty tables — they configured nothing. The doc
+# [git_status]        URLs above serve the same "where do I look"
+# [line_break]        purpose without looking like settings.
+
+# ── If you want the old line-2 ordering back ───────────────────────
+# Replace $all in `format` with an explicit list. You'll be back to
+# maintaining it by hand as Starship adds modules:
+#
+# $nodejs\
+# $docker_context\
+# $package\
+# $python\
+# $golang\
+# ... etc
