@@ -264,6 +264,17 @@ Visual checks:
 **Glyphs show as boxes (▯) or question marks.**
 Terminal font problem, not a shell problem. Check the family name matches exactly: `ghostty +list-fonts | grep -i spacemono`. In Ghostty specifically this shouldn't happen at all — it bundles Nerd Font symbols.
 
+**A glyph shows as nothing at all — no box, just a space.**
+Different failure, and it's *not* the font. The character is missing from the config file. Nerd Font glyphs live in the Unicode Private Use Area, so they're invisible in most editors and survive copy/paste, chat, and clipboard round-trips poorly — they get silently stripped to whitespace. Check with:
+
+```bash
+grep -n 'format' ~/.config/starship.toml | cat -A
+```
+
+If you see `[ $version]` with nothing between the bracket and the `$`, the glyph is gone. This is why `starship.toml` writes them as TOML `\u` escapes (`"[\ue718 $version]..."`) rather than literal characters — an escape is plain ASCII, greppable, self-documenting, and can't be destroyed in transit. Note the quote style is load-bearing: basic (double-quoted) TOML strings process `\u`, literal (single-quoted) strings do not.
+
+Find any glyph's codepoint at <https://www.nerdfonts.com/cheat-sheet>.
+
 **Icons render but look cramped or overlap text.**
 The `Mono` variant single-widths its glyphs. Change `SpaceMono Nerd Font Mono` → `SpaceMono Nerd Font` in both terminal configs. Don't add a second font.
 

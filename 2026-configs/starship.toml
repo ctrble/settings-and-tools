@@ -38,17 +38,30 @@ $git_state\
 $git_status\
 $jobs\
 $cmd_duration\
+\n\
 $all
 $character"""
+
+# https://starship.rs/config/#line-break
+# REQUIRED when using $all with manual \n line breaks: $all includes
+# $line_break, which would inject an extra newline mid-line-2 and
+# strand whatever follows it (battery, container, os) on its own line.
+[line_break]
+disabled = true
 
 # ── Line 1 ─────────────────────────────────────────────────────────
 
 # https://starship.rs/config/#time
 # Disabled by default, so the explicit enable is required.
-# use_12hr makes time_format default to '%r'.
+#
+# time_format is set explicitly rather than relying on use_12hr,
+# because %r changed between Starship versions: 1.16 renders
+# "09:56:33 PM", 1.26 renders "9:56:33 PM" (no zero-padding).
+# %I is zero-padded 12-hour, so this looks identical on both.
+# Verified by rendering on 1.16.0 and 1.26.0.
 [time]
 disabled = false
-use_12hr = true
+time_format = "%I:%M:%S %p"
 format = '[$time]($style) '
 
 # https://starship.rs/config/#directory
@@ -59,10 +72,12 @@ format = '[$time]($style) '
 # truncation_length = 3
 
 # https://starship.rs/config/#git-branch
-# The Nerd Font branch glyph is ALREADY the default symbol, so the
-# `symbol = " "` you had was a no-op. Left unset.
-# This is one of only three Nerd Font glyphs your prompt depends on:
-# git branch, node, and docker.
+# RESTORED from starship.toml.old: nf-oct-git_branch = U+F418.
+# Starship's default is nf-pl-branch (U+E0A0), the taller Powerline
+# glyph — this was a real customization, not a redundant one.
+# Still valid in Nerd Fonts v3.
+[git_branch]
+symbol = "\uf418 "
 
 # https://starship.rs/config/#command-duration
 [cmd_duration]
@@ -75,21 +90,38 @@ threshold = 1
 # ── Line 2 ─────────────────────────────────────────────────────────
 
 # https://starship.rs/config/#node-js
+# Glyphs are TOML escapes, NOT literal characters. Basic
+# (double-quoted) strings process \u / \U; literal (single-quoted)
+# strings do NOT — the quote style is load-bearing.
+#
+# Your original was U+F898, an OLD Material Design Icons codepoint.
+# Nerd Fonts v3 dropped the entire F500-FD46 block, so U+F898 no
+# longer exists in your font and cannot be restored as-is.
+# The v3 equivalent is U+F0399 (nf-md-nodejs), confirmed by the
+# documented remap: F898 - F500 = 0x398; F0001 + 0x398 = F0399.
+# Note the 8-digit \U form — \u only takes 4 hex digits.
+#
+# Currently set to nf-dev-nodejs_small (U+E718). To go back to the
+# modern version of your original MDI icon, swap the commented line.
 [nodejs]
-format = '[ $version](bold green) '
+format = "[\ue718 $version](bold green) "
+# format = "[\U000f0399 $version](bold green) "
 
 # https://starship.rs/config/#docker-context
 # Fixed: your version had a leading AND trailing space, which is
 # where the double gap in your prompt came from.
 #
-# Starship normally hides `default` and `desktop-linux` contexts. If
-# you're seeing `desktop-linux` anyway, it's because Docker Desktop's
-# init-zsh.sh exports DOCKER_HOST or DOCKER_CONTEXT, which forces the
-# module on. Since desktop-linux just means "local Docker," that
-# segment is pure noise — uncomment the disable if you agree.
+# On Starship 1.26 the module suppresses `default` and `desktop-linux`
+# unconditionally — verified by rendering. So the `desktop-linux` you
+# were seeing came from an older Starship, and will disappear on its
+# own once you're current. It renders only for real remote contexts:
+#   DOCKER_CONTEXT=my-remote-cluster  ->   my-remote-cluster
+# It also needs a Dockerfile/compose file present (only_with_files).
+#
+# nf-linux-docker = U+F308 (the whale). Alternative: nf-dev-docker
+# = U+E7B0. Search any glyph at nerdfonts.com/cheat-sheet.
 [docker_context]
-format = '[ $context](blue bold) '
-# disabled = true
+format = "[\uf308 $context](blue bold) "
 
 # ── Line 3 ─────────────────────────────────────────────────────────
 
